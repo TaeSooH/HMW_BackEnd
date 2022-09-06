@@ -56,4 +56,24 @@ public class WordSetService {
         }
         return wordSetObjects;
     }
+    public String deleteWordSet(Long id){
+        Optional<WordSet> _wordSet = wordSetRepository.findById(id);
+        if(_wordSet.isEmpty()){
+            return "세트를 찾지 못했습니다.";
+        }
+        WordSet wordSet = _wordSet.get();
+        wordSetRepository.delete(wordSet);
+        return "삭제 성공";
+    }
+
+    public String modifyWordSet(Long id, String title){
+        Optional<WordSet> _wordSet = wordSetRepository.findById(id);
+        if(_wordSet.isEmpty()){
+            return "세트를 찾지 못했습니다.";
+        }
+        WordSet wordSet = _wordSet.get();
+        wordSet.setTitle(title);
+        wordSetRepository.save(wordSet);
+        return "변경 성공";
+    }
 }

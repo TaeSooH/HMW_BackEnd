@@ -36,4 +36,17 @@ public class WordSetController {
         return wordSetList;
     }
 
+    @PutMapping("deleteWordSet/{id}")
+    @ResponseBody
+    public String deleteWordset(@PathVariable Long id){
+        String result = wordSetService.deleteWordSet(id);
+        return result;
+    }
+
+    @PutMapping("modifyWordSet/{id}")
+    @ResponseBody
+    public String modifyWordSet(@PathVariable Long id, @RequestBody SetForm setForm){
+        String result = wordSetService.modifyWordSet(id, setForm.getTitle());
+        return result;
+    }
 }
