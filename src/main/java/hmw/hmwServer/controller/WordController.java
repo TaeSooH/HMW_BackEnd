@@ -20,10 +20,8 @@ public class WordController {
 
     @PutMapping("setWords/{Id}")
     @ResponseBody
-    public String setWords(@PathVariable Long Id, @RequestBody WordandMeaning[] wordandMeanings, BindingResult bindingResult) {
-        for(WordandMeaning i : wordandMeanings) {
-            wordService.setWord(i.getWord(), i.getMeaning(), Id);
-        }
+    public String setWords(@PathVariable Long Id, @RequestBody WordandMeaning wordandMeanings, BindingResult bindingResult) {
+        wordService.setWord(wordandMeanings.getWord(), wordandMeanings.getMeaning(), Id);
         return "저장 성공";
     }
 
@@ -34,10 +32,18 @@ public class WordController {
         ArrayList<Map<String, String>> words = wordService.getWords(l);
         return words;
     }
-    @PostMapping("Test")
+
+    @PutMapping("deleteWord/{Id}")
     @ResponseBody
-    public String test(@RequestBody Long id){
-        System.out.println(id);
-        return "test";
+    public String deleteWord(@PathVariable Long Id) {
+        String result = wordService.deleteWord(Id);
+        return result;
+    }
+
+    @PutMapping("modifyWord/{Id}")
+    @ResponseBody
+    public String modifyWord(@PathVariable Long Id, @RequestBody WordandMeaning wordandMeaning) {
+        String result = wordService.modifyWord(Id, wordandMeaning.getWord(), wordandMeaning.getMeaning());
+        return result;
     }
 }

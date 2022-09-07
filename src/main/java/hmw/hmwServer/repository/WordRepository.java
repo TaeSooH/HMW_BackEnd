@@ -9,4 +9,5 @@ import java.util.Optional;
 
 public interface WordRepository extends JpaRepository<Word, Long> {
     Optional<ArrayList<Word>> findBywordSet(WordSet wordSet);
+    Optional<Word> findById(Long id);
 }

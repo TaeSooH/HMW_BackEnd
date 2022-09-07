@@ -53,4 +53,26 @@ public class WordService {
         }
         return wordsObject;
     }
+
+    public String deleteWord(Long Id) {
+        Optional<Word> _word = wordRepository.findById(Id);
+        if(_word.isEmpty()) {
+            return "error";
+        }
+        Word word = _word.get();
+        wordRepository.delete(word);
+        return "삭제 성공";
+    }
+
+    public String modifyWord(Long Id, String word, String meaning) {
+        Optional<Word> _word = wordRepository.findById(Id);
+        if(_word.isEmpty()) {
+            return "error";
+        }
+        Word wordandMeaning = _word.get();
+        wordandMeaning.setWord(word);
+        wordandMeaning.setMeaning(meaning);
+        wordRepository.save(wordandMeaning);
+        return "수정 성공";
+    }
 }
