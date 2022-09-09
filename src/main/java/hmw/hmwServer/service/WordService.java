@@ -33,7 +33,7 @@ public class WordService {
         return true;
     }
 
-    public ArrayList<Map<String, String>> getWords(Long setId) throws Exception {
+    public ArrayList<Map<String, Object>> getWords(Long setId) throws Exception {
         Optional<WordSet> _wordSet = wordSetRepository.findById(setId);
         if(_wordSet.isEmpty()){
             throw new Exception("세트를 찾지 못함");
@@ -44,11 +44,12 @@ public class WordService {
             throw new Exception("단어를 찾지 못함");
         }
         ArrayList<Word> _words = words.get();
-        ArrayList<Map<String, String>> wordsObject = new ArrayList<>();
+        ArrayList<Map<String, Object>> wordsObject = new ArrayList<>();
         for(Word i : _words){
-            Map<String, String> w = new HashMap<>();
+            Map<String, Object> w = new HashMap<>();
             w.put("word",i.getWord());
             w.put("meaning", i.getMeaning());
+            w.put("id", i.getId());
             wordsObject.add(w);
         }
         return wordsObject;
