@@ -27,9 +27,8 @@ public class WordController {
 
     @GetMapping("getWords")
     @ResponseBody
-    public ArrayList<Map<String, Object>> getWords(@RequestParam String setId) throws Exception {
-        Long l = Long.parseLong(setId);
-        ArrayList<Map<String, Object>> words = wordService.getWords(l);
+    public ArrayList<Map<String, Object>> getWords(@RequestParam Long setId) throws Exception {
+        ArrayList<Map<String, Object>> words = wordService.getWords(setId);
         return words;
     }
 

@@ -21,7 +21,7 @@ public class Word {
     @Column(nullable = false)
     private String meaning;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(nullable = false, name = "wordColl")
     private WordSet wordSet;
 }

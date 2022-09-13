@@ -45,8 +45,9 @@ public class WordSetController {
 
     @PutMapping("modifyWordSet/{id}")
     @ResponseBody
-    public String modifyWordSet(@PathVariable Long id, @RequestBody SetForm setForm){
-        String result = wordSetService.modifyWordSet(id, setForm.getTitle());
+    public String modifyWordSet(@PathVariable Long id, @RequestBody Map<String, String> form){
+        System.out.println(form.get("title"));
+        String result = wordSetService.modifyWordSet(id, form.get("title"));
         return result;
     }
 }

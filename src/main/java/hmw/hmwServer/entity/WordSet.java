@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -23,4 +24,7 @@ public class WordSet {
 
     @Column(name = "title")
     private String title;
+
+    @OneToMany(mappedBy = "wordSet", cascade = CascadeType.REMOVE)
+    private List<Word> wordList;
 }
