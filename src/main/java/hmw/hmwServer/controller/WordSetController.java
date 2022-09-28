@@ -25,7 +25,7 @@ public class WordSetController {
             return "error";
         }
         String result = wordSetService.createWordSet(setForm.getTitle(), setForm.getOwner());
-
+        System.out.println(result);
         return result;
     }
 

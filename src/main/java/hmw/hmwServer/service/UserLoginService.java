@@ -20,7 +20,7 @@ public class UserLoginService {
     public boolean login(String username, String password) throws UsernameNotFoundException{
         Optional<User> _user = this.userRepository.findByName(username);
         if(_user.isEmpty()){
-            throw new UsernameNotFoundException("사용자를 찾을 수 없음");
+            return false;
         }
         User user = _user.get();
         if(passwordEncoder.matches(password, user.getPassword())){

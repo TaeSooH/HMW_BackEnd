@@ -25,6 +25,6 @@ public class WordSet {
     @Column(name = "title")
     private String title;
 
-    @OneToMany(mappedBy = "wordSet", cascade = CascadeType.REMOVE)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "wordSet", cascade = CascadeType.REMOVE)
     private List<Word> wordList;
 }

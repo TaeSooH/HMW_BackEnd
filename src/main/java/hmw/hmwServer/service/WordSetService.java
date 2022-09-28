@@ -3,8 +3,10 @@ package hmw.hmwServer.service;
 import hmw.hmwServer.entity.User;
 import hmw.hmwServer.entity.WordSet;
 import hmw.hmwServer.repository.UserRepository;
+import hmw.hmwServer.repository.WordRepository;
 import hmw.hmwServer.repository.WordSetRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +19,12 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class WordSetService {
 
+    @Autowired
     private final WordSetRepository wordSetRepository;
+    @Autowired
     private final UserRepository userRepository;
+    @Autowired
+    private final WordRepository wordRepository;
 
     public String createWordSet(String title, String owner){
         Optional<User> _user = userRepository.findByName(owner);
@@ -26,6 +32,15 @@ public class WordSetService {
             return "사용자 에러";
         }
         User user = _user.get();
+        Optional<ArrayList<WordSet>> _wordSet = wordSetRepository.findByuser(user);
+        ArrayList<WordSet> wordSetList = _wordSet.get();
+        for(WordSet i : wordSetList) {
+            System.out.println(i.getTitle() + "   " +  title);
+            if(i.getTitle().equals(title)) {
+                System.out.println("smaasddasdadadsdadadddaasdadada");
+                return "같은 이름의 단어장이 있습니다.";
+            }
+        }
         WordSet wordSet = new WordSet();
         wordSet.setTitle(title);
         wordSet.setUser(user);
@@ -52,6 +67,7 @@ public class WordSetService {
             Map<String, Object> map = new HashMap<>();
             map.put("id", i.getId());
             map.put("title", i.getTitle());
+            map.put("word_length", i.getWordList().size());
             wordSetObjects.add(map);
         }
         return wordSetObjects;
