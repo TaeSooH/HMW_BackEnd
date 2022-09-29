@@ -6,6 +6,7 @@ import hmw.hmwServer.repository.UserRepository;
 import hmw.hmwServer.repository.WordRepository;
 import hmw.hmwServer.repository.WordSetRepository;
 import lombok.RequiredArgsConstructor;
+import org.openqa.selenium.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -71,6 +72,15 @@ public class WordSetService {
             wordSetObjects.add(map);
         }
         return wordSetObjects;
+    }
+
+    public String getWordSetTitle(Long id){
+        Optional<WordSet> _wordSet = wordSetRepository.findById(id);
+        if(_wordSet.isEmpty()){
+            throw new NotFoundException("세트를 차지 못했습니다.");
+        }
+        WordSet wordSet = _wordSet.get();
+        return wordSet.getTitle();
     }
     public String deleteWordSet(Long id){
         Optional<WordSet> _wordSet = wordSetRepository.findById(id);

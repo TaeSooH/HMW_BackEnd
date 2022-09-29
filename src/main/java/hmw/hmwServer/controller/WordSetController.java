@@ -36,6 +36,12 @@ public class WordSetController {
         return wordSetList;
     }
 
+    @GetMapping("getWordSetTitle")
+    @ResponseBody
+    public String getWordSetTitle(@RequestParam Long setId) {
+        return wordSetService.getWordSetTitle(setId);
+    }
+
     @PutMapping("deleteWordSet/{id}")
     @ResponseBody
     public String deleteWordset(@PathVariable Long id){
