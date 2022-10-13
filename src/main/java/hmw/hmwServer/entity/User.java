@@ -3,14 +3,16 @@ package hmw.hmwServer.entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Table
 @Getter
-@Builder
+@NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class User {
     @Id
     @Column(name = "user_id", nullable = false)
