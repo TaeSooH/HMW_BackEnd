@@ -132,4 +132,23 @@ public class WordSetService {
         wordSetRepository.save(wordSet);
         return "공유 성공";
     }
+    public String download(Long id, String owner) {
+        Optional<WordSet> _wordSet = wordSetRepository.findById(id);
+        if(_wordSet.isEmpty()){
+            return "세트를 찾지 못했습니다.";
+        }
+        WordSet wordSet = _wordSet.get();
+        WordSet newWordSet = new WordSet();
+        Optional<User> _user = userRepository.findByName(owner);
+        if(_user.isEmpty()){
+            return "사용자 에러";
+        }
+        User user = _user.get();
+        newWordSet.setUser(user);
+        newWordSet.setTitle(wordSet.getTitle());
+        newWordSet.setWordList(wordSet.getWordList());
+        newWordSet.setShared(false);
+        wordSetRepository.save(newWordSet);
+        return "다운 성공";
+    }
 }
