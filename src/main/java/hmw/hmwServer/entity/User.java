@@ -23,10 +23,10 @@ public class User {
     @Column(nullable = false, length = 100)
     private String password;
 
-    @Column()
-    private String refreshToken;
-
-    public void exchangeRefreshToken(String refreshToken) {
-        this.refreshToken = refreshToken;
-    }
+//    @Column()
+//    private String refreshToken;
+//
+//    public void exchangeRefreshToken(String refreshToken) {
+//        this.refreshToken = refreshToken;
+//    }
 }

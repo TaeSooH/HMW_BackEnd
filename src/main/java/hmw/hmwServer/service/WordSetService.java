@@ -67,6 +67,7 @@ public class WordSetService {
         for(WordSet i : _wordSet){
             System.out.println(i.getId() + " " + i.getTitle());
             Map<String, Object> map = new HashMap<>();
+
             map.put("id", i.getId());
             map.put("title", i.getTitle());
             map.put("word_length", i.getWordList().size());
@@ -102,5 +103,33 @@ public class WordSetService {
         wordSet.setTitle(title);
         wordSetRepository.save(wordSet);
         return "변경 성공";
+    }
+    public ArrayList<Map<String, Object>> getSharedWordSet() throws Exception {
+        Optional<ArrayList<WordSet>> wordSet = wordSetRepository.findBysharedTrue();
+        if(wordSet.isEmpty()){
+            throw new Exception("세트를 찾을 수 없습니다.");
+        }
+        ArrayList<WordSet> _wordSet = wordSet.get();
+        ArrayList<Map<String, Object>> wordSetObjects = new ArrayList<>();
+        for(WordSet i : _wordSet){
+            System.out.println(i.getId() + " " + i.getTitle());
+            Map<String, Object> map = new HashMap<>();
+            map.put("id", i.getId());
+            map.put("title", i.getTitle());
+            map.put("word_length", i.getWordList().size());
+            map.put("owner", i.getUser().getName());
+            wordSetObjects.add(map);
+        }
+        return wordSetObjects;
+    }
+    public String setWordSetShared(Long id) {
+        Optional<WordSet> _wordSet = wordSetRepository.findById(id);
+        if(_wordSet.isEmpty()){
+            return "세트를 찾지 못했습니다.";
+        }
+        WordSet wordSet = _wordSet.get();
+        wordSet.setShared(true);
+        wordSetRepository.save(wordSet);
+        return "공유 성공";
     }
 }

@@ -10,4 +10,7 @@ import java.util.Optional;
 public interface WordSetRepository extends JpaRepository<WordSet, Long> {
     Optional<ArrayList<WordSet>> findByuser(User user);
     Optional<WordSet> findById(Long id);
+
+    Optional<ArrayList<WordSet>> findBysharedTrue();
+
 }

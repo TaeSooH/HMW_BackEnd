@@ -56,4 +56,11 @@ public class WordSetController {
         String result = wordSetService.modifyWordSet(id, form.get("title"));
         return result;
     }
+    @GetMapping("getSharedWordSet")
+    @ResponseBody
+    public ArrayList<Map<String, Object>> getSharedWordSet() throws Exception {
+        ArrayList<Map<String, Object>> wordSetList = wordSetService.getSharedWordSet();
+        return wordSetList;
+    }
+
 }
