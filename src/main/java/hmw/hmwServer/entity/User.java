@@ -1,16 +1,16 @@
 package hmw.hmwServer.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Table
 @Getter
-@Setter
 @Builder
+@AllArgsConstructor
 public class User {
     @Id
     @Column(name = "user_id", nullable = false)
