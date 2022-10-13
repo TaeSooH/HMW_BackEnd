@@ -1,10 +1,10 @@
-package hmw.hmwServer.controller;
+package hmw.hmwServer.domain.user.presentaion;
 
 import hmw.hmwServer.security.SecurityService;
-import hmw.hmwServer.service.UserCreateForm;
-import hmw.hmwServer.service.UserLoginForm;
+import hmw.hmwServer.domain.user.presentaion.dto.request.UserCreateDto;
+import hmw.hmwServer.domain.user.presentaion.dto.request.UserLoginDto;
 import hmw.hmwServer.service.UserLoginService;
-import hmw.hmwServer.service.UserService;
+import hmw.hmwServer.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,27 +29,26 @@ public class UserController {
 
     @PostMapping("/signup")
     @ResponseBody
-    public String signup(@Valid UserCreateForm userCreateForm, BindingResult bindingResult) {
-        System.out.println(userCreateForm.getName());
-        System.out.println(userCreateForm.getPassword1());
+    public String signup(@Valid UserCreateDto userCreateDto, BindingResult bindingResult) {
+        System.out.println(userCreateDto.getName());
+        System.out.println(userCreateDto.getPassword1());
         if (bindingResult.hasErrors()) {
             return "error";
         }
 
-        if (!userCreateForm.getPassword1().equals(userCreateForm.getPassword2())) {
+        if (!userCreateDto.getPassword1().equals(userCreateDto.getPassword2())) {
             bindingResult.rejectValue("password2", "passwordInCorrect",
                     "2개의 패스워드가 일치하지 않습니다.");
             return "패스워드가 일치하지 않습니다.";
         }
-
-        userService.create(userCreateForm.getName(), userCreateForm.getPassword1());
+        userService.create(userCreateDto.getName(), userCreateDto.getPassword1());
 
         return "회원가입 성공!";
     }
 
     @PostMapping("/login")
     @ResponseBody
-    public Map<String, Object> login(@Valid UserLoginForm user, BindingResult bindingResult){
+    public Map<String, Object> login(@Valid UserLoginDto user, BindingResult bindingResult){
         Map<String, Object> map = new LinkedHashMap<>();
         if(bindingResult.hasErrors()) {
             map.put("result", "error");
@@ -57,7 +56,7 @@ public class UserController {
         }
         boolean check = userLoginService.login(user.getName(), user.getPassword());
         if(check) {
-            String token = securityService.createToken(user.getName(), (604800000));
+            String token = securityService.createAccessToken(user.getName(), (604800000));
             map.put("result", token);
         }
         else {

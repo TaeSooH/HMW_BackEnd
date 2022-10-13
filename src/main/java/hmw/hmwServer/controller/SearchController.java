@@ -20,8 +20,6 @@ import static java.time.temporal.ChronoUnit.SECONDS;
 @Component
 @RestController
 public class SearchController {
-//    private static WebDriver driver;
-//    private static final String url = "https://en.dict.naver.com/#/search?range=all&query=coffee";
 
     @RequestMapping("/search")
     public List<String> process(@RequestParam("word") String word) throws Exception {

@@ -1,4 +1,4 @@
-package hmw.hmwServer.service;
+package hmw.hmwServer.domain.user.service;
 
 import hmw.hmwServer.entity.User;
 import hmw.hmwServer.repository.UserRepository;
@@ -18,13 +18,13 @@ public class UserService {
     private final SecurityService securityService;
 
     public User create(String name, String password) {
-        User user = new User();
-        user.setName(name);
-        user.setPassword(passwordEncoder.encode(password));
+        User user = User.builder()
+                .name(name)
+                .password(passwordEncoder.encode((password)))
+                .build();
         this.userRepository.save(user);
         return user;
     }
-
     public String authorization(String token) throws NameNotFoundException {
         String name = securityService.getSubject(token);
         Optional<User> user = userRepository.findByName(name);

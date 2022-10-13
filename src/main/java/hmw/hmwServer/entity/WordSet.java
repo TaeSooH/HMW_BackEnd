@@ -27,4 +27,7 @@ public class WordSet {
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "wordSet", cascade = CascadeType.REMOVE)
     private List<Word> wordList;
+
+    @Column(nullable = false)
+    private Boolean shared;
 }

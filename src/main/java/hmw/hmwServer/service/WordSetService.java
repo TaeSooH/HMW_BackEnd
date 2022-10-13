@@ -45,6 +45,7 @@ public class WordSetService {
         WordSet wordSet = new WordSet();
         wordSet.setTitle(title);
         wordSet.setUser(user);
+        wordSet.setShared(false);
         this.wordSetRepository.save(wordSet);
         return "세트를 만들었습니다.";
     }
