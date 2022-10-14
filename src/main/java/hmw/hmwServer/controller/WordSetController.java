@@ -64,7 +64,8 @@ public class WordSetController {
     }
     @PostMapping("downloadSharedWordSet/{id}")
     @ResponseBody()
-    public String downloadSharedWordSet(@PathVariable Long id, @RequestBody String owner){
+    public String downloadSharedWordSet(@PathVariable Long id, @RequestParam String owner){
+        System.out.println(owner);
         return wordSetService.download(id, owner);
     }
     @PutMapping("shareWordSet/{id}")
