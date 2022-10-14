@@ -62,7 +62,7 @@ public class WordSetController {
         ArrayList<Map<String, Object>> wordSetList = wordSetService.getSharedWordSet();
         return wordSetList;
     }
-    @PostMapping("downloadSharedWordSet")
+    @PostMapping("downloadSharedWordSet/{id}")
     @ResponseBody()
     public String downloadSharedWordSet(@PathVariable Long id, @RequestBody String owner){
         return wordSetService.download(id, owner);
