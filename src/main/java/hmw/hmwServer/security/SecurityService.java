@@ -31,6 +31,7 @@ public class SecurityService {
                 .setExpiration(new Date(System.currentTimeMillis() + expTime))
                 .compact();
     }
+
     public String createRefreshToken(String subject, long expTime){
         if(expTime <= 0) {
             throw new RuntimeException("만료시이 0보다 커야함!");

@@ -1,6 +1,7 @@
 package hmw.hmwServer.service;
 
 import hmw.hmwServer.entity.User;
+import hmw.hmwServer.entity.Word;
 import hmw.hmwServer.entity.WordSet;
 import hmw.hmwServer.repository.UserRepository;
 import hmw.hmwServer.repository.WordRepository;
@@ -11,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -149,6 +147,13 @@ public class WordSetService {
         newWordSet.setWordList(wordSet.getWordList());
         newWordSet.setShared(false);
         wordSetRepository.save(newWordSet);
+        for( Word i : wordSet.getWordList()) {
+            Word _word = new Word();
+            _word.setWord(i.getWord());
+            _word.setMeaning(i.getMeaning());
+            _word.setWordSet(newWordSet);
+            wordRepository.save(_word);
+        }
         return "다운 성공";
     }
 }

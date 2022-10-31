@@ -54,6 +54,8 @@ public class SearchController {
 
         List<WebElement> elements = driver.findElements(By.cssSelector(".box_example"));
         List<WebElement> elements2 = driver.findElements(By.cssSelector(".list_search"));
+        System.out.println(elements.get(0).getText() );
+        System.out.println(elements2.get(0).getText());
         list.add(elements.get(0).getText());
         list.add(elements2.get(0).getText());
         return list;
